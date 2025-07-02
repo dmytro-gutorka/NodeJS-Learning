@@ -10,25 +10,24 @@ server.on('request', (req, res) => {
 
     // Solution 2
 
-    // const readable = fs.createReadStream('test-file.txt')
-    //
-    // readable.on('data', (chunk) => {
-    //     res.write(chunk);
-    // })
-    //
-    // readable.on('error', (err) => {
-    //     console.log(err)
-    //     res.statusCode = 500
-    //     res.end('Error')
-    // })
-    //
-    // readable.on('end', () => {
-    //     res.end('Stream finished')
-    // })
+    const readable = fs.createReadStream('test-file.txt')
+
+    readable.on('data', (chunk) => {
+        res.write(chunk);
+    })
+
+    readable.on('error', (err) => {
+        console.log(err)
+        res.statusCode = 500
+        res.end('Error')
+    })
+
+    readable.on('end', () => {
+        res.end('Stream finished')
+    })
 
     // Solution 3
 
-    const readable = fs.createReadStream('test-file.txt')
     readable.pipe(res)
 
 })
